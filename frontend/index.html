@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChangeScope — Intelligent Website Change Detector</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔭</text></svg>">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Mobile Backdrop -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <!-- Polished SaaS Sidebar Navigation -->
+    <aside id="app-sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <a href="#dashboard" class="sidebar-brand" id="brand-link">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+              <line x1="12" y1="2" x2="12" y2="4"></line>
+              <line x1="12" y1="20" x2="12" y2="22"></line>
+              <line x1="2" y1="12" x2="4" y2="12"></line>
+              <line x1="20" y1="12" x2="22" y2="12"></line>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">ChangeScope</span>
+            <span class="brand-badge">SaaS v0.1</span>
+          </div>
+        </a>
+        <button id="btn-sidebar-close" class="btn-icon mobile-only" aria-label="Close sidebar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main Navigation">
+        <div class="nav-section">
+          <span class="nav-section-title">Core Platform</span>
+          <ul class="nav-list">
+            <li>
+              <button class="nav-item active" data-view="dashboard" aria-current="page">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                </svg>
+                <span class="nav-label">Dashboard</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-view="monitors">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span class="nav-label">Monitors</span>
+                <span class="nav-count" id="nav-monitors-count">0</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-view="timemachine">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                  <path d="M4.93 4.93l4.24 4.24"></path>
+                </svg>
+                <span class="nav-label">Time Machine</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-view="heatmap">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span class="nav-label">Change Heatmap</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-view="history">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span class="nav-label">Change History</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="nav-section">
+          <span class="nav-section-title">Operations & Quality</span>
+          <ul class="nav-list">
+            <li>
+              <button class="nav-item" data-view="notifications">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span class="nav-label">Notifications</span>
+                <span class="nav-count" id="nav-notifications-count" style="display: none;">0</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-view="analytics">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span class="nav-label">Analytics</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-view="reliability">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+                <span class="nav-label">Reliability Lab</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-view="settings">
+                <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span class="nav-label">Settings</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="engine-badge">
+          <div class="engine-indicator"></div>
+          <div class="engine-info">
+            <span class="engine-title">FastAPI + SQLite</span>
+            <span class="engine-status" id="sidebar-db-status">Checking connection...</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Application Shell -->
+    <div class="main-shell">
+      <!-- SaaS Topbar with Breadcrumbs, Live Status, and Theme Toggle -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="btn-sidebar-toggle" class="btn-icon mobile-only" aria-label="Open sidebar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="breadcrumbs">
+            <span class="crumb-root">ChangeScope</span>
+            <span class="crumb-divider">/</span>
+            <span class="crumb-current" id="current-view-title">Dashboard</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Backend Status Indicator -->
+          <div id="backend-status-pill" class="status-pill status-loading" title="Live status of backend API">
+            <span class="status-dot"></span>
+            <span id="backend-status-text">Checking backend...</span>
+          </div>
+
+          <!-- Refresh Data Button -->
+          <button id="btn-refresh-data" class="btn btn-secondary btn-sm" title="Refresh health telemetry & sites">
+            <svg class="spin-on-load" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            <span class="btn-text-desktop">Sync</span>
+          </button>
+
+          <!-- Notification Bell with Unread Badge (Prompt 8) -->
+          <button id="btn-topbar-notifications" class="theme-toggle notif-bell-btn" aria-label="Notifications" title="Notifications & Alerts">
+            <svg class="bell-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span id="topbar-unread-badge" class="notif-badge-pill" style="display: none;">0</span>
+          </button>
+
+          <!-- Interactive Dark/Light Mode Toggle -->
+          <button id="btn-theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme (Light / Dark)">
+            <svg class="theme-icon icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="theme-icon icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <!-- API Docs Link -->
+          <a href="/docs" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" title="View interactive OpenAPI Swagger documentation">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <span class="btn-text-desktop">Docs</span>
+          </a>
+
+          <!-- User Profile & Account Dropdown (Prompt 10) -->
+          <div class="user-menu-wrapper" id="user-menu-wrapper">
+            <button id="btn-user-profile" class="btn-user-profile" aria-expanded="false" title="User account">
+              <span class="user-avatar" id="topbar-user-avatar">CS</span>
+              <span class="user-name-text" id="topbar-user-name">Account</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div id="user-dropdown" class="user-dropdown" style="display: none;">
+              <div class="user-dropdown-header">
+                <div class="user-dropdown-name" id="dropdown-user-name">User Account</div>
+                <div class="user-dropdown-email" id="dropdown-user-email">user@example.com</div>
+                <span class="user-role-badge" id="dropdown-user-role">Member</span>
+              </div>
+              <div class="user-dropdown-divider"></div>
+              <button class="user-dropdown-item" id="dropdown-btn-settings">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Account &amp; Security</span>
+              </button>
+              <div class="user-dropdown-divider"></div>
+              <button class="user-dropdown-item user-dropdown-item-danger" id="dropdown-btn-logout">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span>Log Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <main class="page-viewport">
+        <!-- VIEW 1: DASHBOARD -->
+        <section id="view-dashboard" class="app-view active">
+          <!-- Overview Hero Banner -->
+          <div class="hero-banner">
+            <div class="hero-content">
+              <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Production Architecture • Step 1</span>
+              </div>
+              <h1 class="hero-title">Continuous Website Intelligence</h1>
+              <p class="hero-description">
+                Autonomous monitoring engine engineered to track DOM mutations, visual regressions, and uptime degradation with cryptographic verification.
+              </p>
+            </div>
+            <div class="hero-metrics">
+              <div class="hero-metric-box">
+                <span class="hero-metric-label">Engine</span>
+                <span class="hero-metric-value">FastAPI 0.115+</span>
+              </div>
+              <div class="hero-metric-box">
+                <span class="hero-metric-label">Persistence</span>
+                <span class="hero-metric-value">SQLite 3</span>
+              </div>
+              <div class="hero-metric-box">
+                <span class="hero-metric-label">SSRF Shield</span>
+                <span class="hero-metric-value text-emerald">Active</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-Time Metrics (Honest Data) -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Monitored Targets</span>
+                <div class="metric-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-sites-count">0</div>
+              <div class="metric-subtext">Configured in SQLite database</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Active Checks</span>
+                <div class="metric-icon-box accent-violet">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-active-count">0</div>
+              <div class="metric-subtext">Active monitoring loops</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Detected Changes</span>
+                <div class="metric-icon-box accent-cyan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-changes-count">0</div>
+              <div class="metric-subtext">Diffs logged in history</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">API Response Latency</span>
+                <div class="metric-icon-box accent-emerald">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="metric-latency">—</div>
+              <div class="metric-subtext" id="metric-latency-subtext">Direct localhost latency</div>
+            </div>
+          </div>
+
+          <!-- Dashboard Main Split -->
+          <div class="dashboard-split">
+            <!-- Left: Monitored Targets Panel -->
+            <div class="card panel-sites">
+              <div class="card-header">
+                <div class="card-header-left">
+                  <h2 class="card-title">Monitored Websites</h2>
+                  <span class="card-count-badge" id="sites-badge">0 configured</span>
+                </div>
+                <button class="btn btn-primary btn-sm nav-switch-btn" data-target="monitors">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                  <span>Add Monitor</span>
+                </button>
+              </div>
+
+              <!-- Real Sites Container / Honest Empty State -->
+              <div id="sites-list-container" class="sites-container">
+                <div class="loading-state" style="padding: 32px 16px;">
+                  <div class="loading-spinner"></div>
+                  <p>Loading monitored websites...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Real-time System Diagnostic Inspector -->
+            <div class="card panel-diagnostic">
+              <div class="card-header">
+                <div class="card-header-left">
+                  <h2 class="card-title">System Diagnostic</h2>
+                  <span class="card-tag">Live Health</span>
+                </div>
+                <button id="btn-ping-health" class="btn btn-secondary btn-sm" title="Re-check health endpoint">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  Ping /api/health
+                </button>
+              </div>
+
+              <div class="diag-specs-grid">
+                <div class="diag-spec-card">
+                  <span class="diag-spec-label">API Health</span>
+                  <span class="diag-spec-val" id="diag-api-status">Pending...</span>
+                </div>
+                <div class="diag-spec-card">
+                  <span class="diag-spec-label">Round-Trip Latency</span>
+                  <span class="diag-spec-val" id="diag-latency">—</span>
+                </div>
+                <div class="diag-spec-card">
+                  <span class="diag-spec-label">Database Engine</span>
+                  <span class="diag-spec-val" id="diag-db-status">—</span>
+                </div>
+                <div class="diag-spec-card">
+                  <span class="diag-spec-label">Server Timestamp</span>
+                  <span class="diag-spec-val monospace" id="diag-timestamp">—</span>
+                </div>
+              </div>
+
+              <!-- JSON Response Terminal Preview -->
+              <div class="terminal-card">
+                <div class="terminal-bar">
+                  <div class="terminal-dots">
+                    <span class="t-dot dot-red"></span>
+                    <span class="t-dot dot-yellow"></span>
+                    <span class="t-dot dot-green"></span>
+                  </div>
+                  <span class="terminal-title">GET /api/health Payload</span>
+                  <span class="terminal-type">application/json</span>
+                </div>
+                <pre class="terminal-body"><code id="health-json-output">// Click "Ping /api/health" or "Sync" to fetch live JSON...</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Automated Monitoring Scheduler Section (Prompt 9) -->
+          <div class="card scheduler-dashboard-card" style="margin-top: 24px;">
+            <div class="card-header" style="flex-wrap: wrap; gap: 12px;">
+              <div class="card-header-left">
+                <div class="modal-icon-badge accent-indigo" style="width: 36px; height: 36px; border-radius: 8px;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="card-title">Automated Monitoring Scheduler</h2>
+                  <p class="card-subtitle">APScheduler background engine running periodic checks across active targets</p>
+                </div>
+              </div>
+
+              <div class="scheduler-header-actions" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span id="dash-scheduler-status-badge" class="status-badge status-badge-active">
+                  <span class="badge-dot" style="background: var(--accent-emerald);"></span>
+                  Scheduler Running
+                </span>
+
+                <button id="dash-btn-toggle-auto-checks" class="btn btn-secondary btn-sm" title="Toggle global automated checks on/off">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                  </svg>
+                  <span id="dash-btn-toggle-text">Pause Auto Checks</span>
+                </button>
+
+                <button id="dash-btn-scheduler-sync" class="btn btn-secondary btn-sm" title="Synchronize scheduler jobs with database monitors">
+                  <svg class="spin-on-load" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                  <span>Sync</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Scheduler KPI Specs -->
+            <div class="metrics-grid" style="padding: 0 20px 20px 20px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+              <div class="metric-card" style="padding: 16px;">
+                <div class="metric-header">
+                  <span class="metric-title">Automation Engine</span>
+                  <div class="metric-icon-box">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                  </div>
+                </div>
+                <div class="metric-value" style="font-size: 1.15rem;">APScheduler 3.11</div>
+                <div class="metric-subtext">Thread pool (5 workers)</div>
+              </div>
+
+              <div class="metric-card" style="padding: 16px;">
+                <div class="metric-header">
+                  <span class="metric-title">Global State</span>
+                  <div class="metric-icon-box accent-indigo">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                    </svg>
+                  </div>
+                </div>
+                <div class="metric-value" id="dash-scheduler-global-state" style="font-size: 1.15rem; color: var(--accent-emerald);">Active</div>
+                <div class="metric-subtext" id="dash-scheduler-global-subtext">Automated checks enabled</div>
+              </div>
+
+              <div class="metric-card" style="padding: 16px;">
+                <div class="metric-header">
+                  <span class="metric-title">Scheduled Jobs</span>
+                  <div class="metric-icon-box accent-violet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="8" y1="6" x2="21" y2="6"></line>
+                      <line x1="8" y1="12" x2="21" y2="12"></line>
+                      <line x1="8" y1="18" x2="21" y2="18"></line>
+                      <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                      <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                      <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                  </div>
+                </div>
+                <div class="metric-value" id="dash-scheduler-active-jobs" style="font-size: 1.15rem;">0</div>
+                <div class="metric-subtext">Active interval triggers</div>
+              </div>
+
+              <div class="metric-card" style="padding: 16px;">
+                <div class="metric-header">
+                  <span class="metric-title">Next Scheduled Check</span>
+                  <div class="metric-icon-box accent-cyan">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                  </div>
+                </div>
+                <div class="metric-value" id="dash-scheduler-next-run" style="font-size: 1.15rem;">—</div>
+                <div class="metric-subtext" id="dash-scheduler-next-run-subtext">Earliest queue item</div>
+              </div>
+            </div>
+
+            <!-- Main Scheduler Split: Left Queue, Right Recent Outcomes -->
+            <div class="scheduler-split-grid" style="display: grid; grid-template-columns: 3fr 2fr; gap: 20px; padding: 0 20px 20px 20px;">
+              <!-- Left: Scheduled Checks Queue -->
+              <div class="card subcard scheduler-queue-box" style="margin: 0; display: flex; flex-direction: column;">
+                <div class="subcard-header-flex" style="margin-bottom: 12px;">
+                  <div>
+                    <h3 class="subcard-title" style="font-size: 0.95rem;">Monitoring Schedule Queue</h3>
+                    <p class="subcard-desc">Scheduled targets with upcoming check execution times</p>
+                  </div>
+                </div>
+                <div id="dash-scheduler-queue-container" class="scheduler-queue-content">
+                  <div class="loading-state" style="padding: 24px;">
+                    <div class="loading-spinner"></div>
+                    <p>Loading scheduled jobs queue...</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: Recent Scheduled Check Outcomes -->
+              <div class="card subcard scheduler-outcomes-box" style="margin: 0; display: flex; flex-direction: column;">
+                <div class="subcard-header-flex" style="margin-bottom: 12px;">
+                  <div>
+                    <h3 class="subcard-title" style="font-size: 0.95rem;">Recent Check Outcomes</h3>
+                    <p class="subcard-desc">Telemetry logs from latest automated check cycles</p>
+                  </div>
+                </div>
+                <div id="dash-scheduler-outcomes-container" class="scheduler-outcomes-content">
+                  <div class="loading-state" style="padding: 24px;">
+                    <div class="loading-spinner"></div>
+                    <p>Loading recent check outcomes...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 2: MONITORS (FUNCTIONAL MONITOR MANAGER) -->
+        <section id="view-monitors" class="app-view">
+          <div class="monitors-page-header">
+            <div>
+              <h1 class="page-title">Website Monitors</h1>
+              <p class="page-subtitle">Configure URL targets, check intervals, and manage automated change detection loops.</p>
+            </div>
+            <button id="btn-open-add-monitor" class="btn btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Add Monitor</span>
+            </button>
+          </div>
+
+          <!-- Controls Bar: Search & Status Filters -->
+          <div class="monitors-controls-bar">
+            <div class="search-input-wrapper">
+              <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                type="text"
+                id="monitors-search-input"
+                class="search-input"
+                placeholder="Filter by website name or URL..."
+                aria-label="Filter monitors"
+              />
+              <button id="btn-clear-search" class="search-clear-btn" style="display: none;" title="Clear search">✕</button>
+            </div>
+
+            <div class="filter-pills-row" role="tablist" aria-label="Status filters">
+              <button class="filter-pill active" data-filter="all">All (<span id="filter-count-all">0</span>)</button>
+              <button class="filter-pill" data-filter="active">Active (<span id="filter-count-active">0</span>)</button>
+              <button class="filter-pill" data-filter="paused">Paused (<span id="filter-count-paused">0</span>)</button>
+            </div>
+          </div>
+
+          <!-- Main Monitors List / Table Container -->
+          <div class="card monitors-table-card">
+            <div id="monitors-table-container">
+              <!-- Dynamically populated by app.js (loading, empty, or real rows) -->
+              <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Loading monitors from SQLite database...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual Changes & Screenshot Diff Section -->
+          <div class="card visual-changes-card" id="visual-changes-section" style="margin-top: 24px;">
+            <div class="card-header vc-header">
+              <div class="card-header-left">
+                <div class="modal-icon-badge accent-indigo" style="width: 32px; height: 32px; border-radius: 8px;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="card-title">Visual Changes &amp; Screenshots</h2>
+                  <p class="card-subtitle">Headless browser rendering and pixel difference detection via Playwright &amp; Pillow</p>
+                </div>
+              </div>
+
+              <div class="vc-header-actions" style="display: flex; align-items: center; gap: 10px;">
+                <div class="form-group-inline" style="display: flex; align-items: center; gap: 8px;">
+                  <label for="vc-site-select" class="control-label" style="font-size: 0.8rem; margin: 0; color: var(--text-muted);">Target:</label>
+                  <select id="vc-site-select" class="form-select form-select-sm" style="min-width: 170px;"></select>
+                </div>
+                <button id="vc-btn-capture" class="btn btn-primary btn-sm" title="Capture visual snapshot now">
+                  <svg class="camera-icon-spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <span id="vc-btn-capture-text">Capture Screenshot</span>
+                </button>
+              </div>
+            </div>
+
+            <div id="vc-content-body" class="vc-body" style="padding: 20px;">
+              <!-- Dynamically rendered visual comparison cards or empty state -->
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 3: TIME MACHINE & VERSION HISTORY -->
+        <section id="view-timemachine" class="app-view">
+          <!-- Top Control Header: Monitor Selector & Actions -->
+          <div class="timemachine-header">
+            <div class="timemachine-title-group">
+              <div class="page-icon-wrapper accent-violet">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                  <path d="M4.93 4.93l4.24 4.24"></path>
+                </svg>
+              </div>
+              <div>
+                <h1 class="page-title">Time Machine &amp; Version History</h1>
+                <p class="page-subtitle">Interactive version scrubber, chronological snapshot timeline, and text diffing.</p>
+              </div>
+            </div>
+
+            <div class="timemachine-controls-top">
+              <div class="site-select-wrapper">
+                <label for="tm-site-select" class="control-label">Target:</label>
+                <select id="tm-site-select" class="form-select tm-site-dropdown" aria-label="Select target monitor">
+                  <!-- Populated dynamically with active monitors -->
+                </select>
+              </div>
+
+              <button id="tm-btn-check-now" class="btn btn-primary btn-sm" title="Run immediate check to capture a new snapshot">
+                <svg class="check-icon-spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span id="tm-btn-check-text">Capture Snapshot</span>
+              </button>
+
+              <button id="tm-btn-refresh" class="btn btn-secondary btn-sm" title="Refresh snapshots">
+                <svg class="spin-on-load" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty State (No monitors or 0 snapshots) -->
+          <div id="tm-empty-container" class="card" style="display: none;">
+            <!-- Populated dynamically with honest empty state -->
+          </div>
+
+          <!-- Main Interactive Time Machine Workspace -->
+          <div id="tm-workspace" class="timemachine-workspace">
+            <!-- Timeline Scrubber Card (Top Bar) -->
+            <div class="card tm-scrubber-card">
+              <div class="tm-scrubber-top">
+                <div class="tm-scrubber-info">
+                  <span class="tm-version-pill" id="tm-version-indicator">Version 1 of 1</span>
+                  <span class="tm-snapshot-meta" id="tm-scrubber-timestamp">Captured —</span>
+                  <span id="tm-scrubber-status-badge" class="status-badge status-badge-baseline">Baseline</span>
+                </div>
+                <div class="tm-scrubber-actions">
+                  <button id="tm-btn-first" class="btn btn-secondary btn-sm" title="Jump to First Version (Baseline)">
+                    &laquo; Baseline
+                  </button>
+                  <button id="tm-btn-prev" class="btn btn-secondary btn-sm" title="Previous Version (Older)">
+                    &lsaquo; Prev
+                  </button>
+                  <button id="tm-btn-next" class="btn btn-secondary btn-sm" title="Next Version (Newer)">
+                    Next &rsaquo;
+                  </button>
+                  <button id="tm-btn-latest" class="btn btn-secondary btn-sm" title="Jump to Latest Snapshot">
+                    Latest &raquo;
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive Timeline Slider Scrubber -->
+              <div class="tm-slider-container">
+                <div class="tm-slider-ticks" id="tm-slider-ticks"></div>
+                <input type="range" id="tm-slider" class="tm-range-slider" min="0" max="0" value="0" step="1" aria-label="Version Timeline Scrubber" />
+                <div class="tm-slider-labels">
+                  <span id="tm-slider-first-label">Baseline (v1)</span>
+                  <span id="tm-slider-current-label">Scrub Timeline</span>
+                  <span id="tm-slider-latest-label">Latest</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Split View: Version Feed (Left) & Inspector / Diff (Right) -->
+            <div class="tm-main-split">
+              <!-- Left Sidebar: Chronological Version Timeline List -->
+              <div class="card tm-timeline-card">
+                <div class="card-header tm-panel-header">
+                  <div class="card-header-left">
+                    <h3 class="card-title" style="font-size: 0.95rem;">Version Timeline</h3>
+                    <span class="card-count-badge" id="tm-timeline-count">0 versions</span>
+                  </div>
+                  <button id="tm-btn-sort-toggle" class="btn btn-icon-sm" title="Toggle Chronological / Reverse Sort">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="tm-timeline-list" id="tm-timeline-list" role="list" aria-label="Version history list">
+                  <!-- Rendered dynamically as chronological snapshot items -->
+                </div>
+              </div>
+
+              <!-- Right Panel: Version Inspector & Text Diff Comparison -->
+              <div class="card tm-viewer-card">
+                <!-- Viewer Mode Tabs (Single Version vs Compare) -->
+                <div class="card-header tm-viewer-header">
+                  <div class="diff-tab-buttons" role="tablist">
+                    <button class="diff-tab-btn active" id="tm-tab-btn-inspect" data-mode="inspect">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                      </svg>
+                      Inspect Version Text
+                    </button>
+                    <button class="diff-tab-btn" id="tm-tab-btn-compare" data-mode="compare">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                      </svg>
+                      Before / After Compare
+                    </button>
+                  </div>
+
+                  <div class="tm-viewer-header-actions" id="tm-inspect-actions">
+                    <button id="tm-btn-copy-text" class="btn btn-secondary btn-sm" title="Copy version text">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                      Copy Text
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Pane 1: Single Version Inspector -->
+                <div id="tm-pane-inspect" class="tm-pane active">
+                  <!-- Version Telemetry Bar -->
+                  <div class="tm-version-meta-bar">
+                    <div class="tm-meta-item">
+                      <span class="tm-meta-label">Snapshot ID:</span>
+                      <span class="tm-meta-value monospace" id="tm-meta-id">#—</span>
+                    </div>
+                    <div class="tm-meta-item">
+                      <span class="tm-meta-label">Recorded:</span>
+                      <span class="tm-meta-value" id="tm-meta-date">—</span>
+                    </div>
+                    <div class="tm-meta-item">
+                      <span class="tm-meta-label">HTTP Status:</span>
+                      <span class="tm-meta-value" id="tm-meta-status">—</span>
+                    </div>
+                    <div class="tm-meta-item">
+                      <span class="tm-meta-label">Latency:</span>
+                      <span class="tm-meta-value" id="tm-meta-latency">—</span>
+                    </div>
+                    <div class="tm-meta-item">
+                      <span class="tm-meta-label">Size:</span>
+                      <span class="tm-meta-value" id="tm-meta-size">— lines</span>
+                    </div>
+                    <div class="tm-meta-item tm-hash-box">
+                      <span class="tm-meta-label">SHA-256:</span>
+                      <span class="tm-meta-value monospace tm-hash-code" id="tm-meta-hash" title="Cryptographic SHA-256 hash">—</span>
+                    </div>
+                  </div>
+
+                  <!-- Text Code Container -->
+                  <div class="diff-code-wrapper tm-text-wrapper">
+                    <pre class="diff-code"><code id="tm-text-content">// Extracted readable text...</code></pre>
+                  </div>
+                </div>
+
+                <!-- Pane 2: Before/After Comparison Tool -->
+                <div id="tm-pane-compare" class="tm-pane" style="display: none;">
+                  <!-- Comparison Selectors -->
+                  <div class="tm-compare-bar">
+                    <div class="tm-compare-select-group">
+                      <label for="tm-compare-base-select" class="control-label">Base Version (Older):</label>
+                      <select id="tm-compare-base-select" class="form-select tm-compare-dropdown"></select>
+                    </div>
+
+                    <button id="tm-btn-swap-compare" class="btn btn-secondary btn-icon-sm" title="Swap base and target versions">
+                      &harr;
+                    </button>
+
+                    <div class="tm-compare-select-group">
+                      <label for="tm-compare-target-select" class="control-label">Target Version (Newer):</label>
+                      <select id="tm-compare-target-select" class="form-select tm-compare-dropdown"></select>
+                    </div>
+
+                    <div class="tm-compare-diff-stats" id="tm-compare-stats">
+                      <span class="status-badge status-badge-active" id="tm-diff-added-badge">+0 lines</span>
+                      <span class="status-badge status-badge-error" id="tm-diff-removed-badge">-0 lines</span>
+                      <span class="status-badge status-badge-paused" id="tm-diff-summary-badge">Comparing</span>
+                    </div>
+                  </div>
+
+                  <!-- Comparison Sub-tabs: Unified vs Side-by-Side -->
+                  <div class="tm-compare-subtabs">
+                    <div class="diff-tab-buttons" role="tablist">
+                      <button class="diff-tab-btn active" id="tm-diff-tab-unified" data-subtab="unified">Unified Diff</button>
+                      <button class="diff-tab-btn" id="tm-diff-tab-side" data-subtab="side">Side-by-Side (Before &amp; After)</button>
+                    </div>
+                  </div>
+
+                  <!-- Subpane A: Unified Diff -->
+                  <div id="tm-diff-unified-pane" class="diff-code-wrapper tm-diff-wrapper">
+                    <pre class="diff-code"><code id="tm-diff-unified-code">// Unified diff with highlighted lines...</code></pre>
+                  </div>
+
+                  <!-- Subpane B: Side-by-Side View -->
+                  <div id="tm-diff-side-pane" class="tm-side-by-side" style="display: none;">
+                    <div class="tm-side-column">
+                      <div class="tm-side-column-header">
+                        <span id="tm-side-base-label">Base Version</span>
+                      </div>
+                      <div class="diff-code-wrapper">
+                        <pre class="diff-code"><code id="tm-side-base-code">// Base version text...</code></pre>
+                      </div>
+                    </div>
+                    <div class="tm-side-column">
+                      <div class="tm-side-column-header">
+                        <span id="tm-side-target-label">Target Version</span>
+                      </div>
+                      <div class="diff-code-wrapper">
+                        <pre class="diff-code"><code id="tm-side-target-code">// Target version text...</code></pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: CHANGE HEATMAP -->
+        <section id="view-heatmap" class="app-view">
+          <!-- Top Control Header: Monitor & Timeframe Selectors -->
+          <div class="view-header-bar">
+            <div class="view-title-group">
+              <div class="page-icon-wrapper accent-cyan">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <div>
+                <h1 class="page-title">Change Heatmap &amp; Cadence</h1>
+                <p class="page-subtitle">Hourly distribution matrix, activity cadence, and change frequency across monitored websites.</p>
+              </div>
+            </div>
+
+            <div class="view-controls-top">
+              <div class="control-group-inline">
+                <label for="hm-site-select" class="control-label">Target:</label>
+                <select id="hm-site-select" class="form-select form-select-sm" aria-label="Filter by target monitor">
+                  <option value="all">All Monitors (Aggregated)</option>
+                </select>
+              </div>
+
+              <div class="control-group-inline">
+                <label for="hm-days-select" class="control-label">Range:</label>
+                <select id="hm-days-select" class="form-select form-select-sm" aria-label="Select date range">
+                  <option value="7">Last 7 Days</option>
+                  <option value="14">Last 14 Days</option>
+                  <option value="30" selected>Last 30 Days</option>
+                  <option value="90">Last 90 Days</option>
+                  <option value="0">All Time</option>
+                </select>
+              </div>
+
+              <button id="hm-btn-refresh" class="btn btn-secondary btn-sm" title="Refresh heatmap data">
+                <svg class="spin-on-load" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span>Refresh</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Heatmap Summary KPI Cards -->
+          <div class="metrics-grid" style="margin-bottom: 24px;">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Total Changes</span>
+                <div class="metric-icon-box accent-cyan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="hm-kpi-total-changes">0</div>
+              <div class="metric-subtext" id="hm-kpi-changes-subtext">Detected in selected window</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Peak Day</span>
+                <div class="metric-icon-box accent-violet">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="hm-kpi-peak-day" style="font-size: 1.45rem;">—</div>
+              <div class="metric-subtext" id="hm-kpi-peak-day-subtext">Highest mutation volume</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Peak Hour</span>
+                <div class="metric-icon-box accent-indigo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 14"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="hm-kpi-peak-hour">—</div>
+              <div class="metric-subtext">UTC time of highest change</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Active Time Window</span>
+                <div class="metric-icon-box accent-emerald">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 14"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="hm-kpi-active-window" style="font-size: 1.05rem; line-height: 1.3;">—</div>
+              <div class="metric-subtext" id="hm-kpi-window-subtext">Calendar range</div>
+            </div>
+          </div>
+
+          <!-- Heatmap Main Container (Loading / Empty / Loaded) -->
+          <div id="hm-content-container">
+            <div class="card" style="padding: 32px; text-align: center;">
+              <div class="loading-spinner" style="margin: 0 auto 12px auto;"></div>
+              <p style="color: var(--text-muted); font-size: 0.88rem;">Loading change telemetry and activity matrix...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 5: CHANGE HISTORY (FUNCTIONAL AUDIT LOG) -->
+        <section id="view-history" class="app-view">
+          <div class="monitors-page-header">
+            <div>
+              <h1 class="page-title">Change History & Audit Log</h1>
+              <p class="page-subtitle">Timeline of every detected textual change, before/after diffs, and verification hashes.</p>
+            </div>
+            <button id="btn-refresh-history" class="btn btn-secondary btn-sm" title="Refresh change events">
+              <svg class="spin-on-load" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <polyline points="1 20 1 14 7 14"></polyline>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+              </svg>
+              Refresh History
+            </button>
+          </div>
+
+          <div class="card monitors-table-card">
+            <div id="history-table-container">
+              <!-- Populated by app.js with live change events or honest empty state -->
+              <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Loading detected changes from SQLite database...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 6: NOTIFICATIONS & ALERTS -->
+        <section id="view-notifications" class="app-view">
+          <!-- Top Control Header: Filter & Bulk Actions -->
+          <div class="view-header-bar">
+            <div class="view-title-group">
+              <div class="page-icon-wrapper accent-emerald">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+              </div>
+              <div>
+                <h1 class="page-title">Notifications &amp; Alerts</h1>
+                <p class="page-subtitle">Real-time persistent alerts for detected text changes, visual changes, and check failures.</p>
+              </div>
+            </div>
+
+            <div class="view-controls-top">
+              <div class="control-group-inline">
+                <label for="notif-filter-site" class="control-label">Target:</label>
+                <select id="notif-filter-site" class="form-select form-select-sm" aria-label="Filter alerts by target monitor">
+                  <option value="all">All Monitors</option>
+                </select>
+              </div>
+
+              <div class="control-group-inline">
+                <label for="notif-filter-type" class="control-label">Event:</label>
+                <select id="notif-filter-type" class="form-select form-select-sm" aria-label="Filter alerts by event type">
+                  <option value="all">All Events</option>
+                  <option value="text_change">Text Changes</option>
+                  <option value="visual_change">Visual Changes</option>
+                  <option value="check_failed">Check Failures</option>
+                </select>
+              </div>
+
+              <div class="filter-pill-group">
+                <button class="filter-pill active" id="notif-pill-all" data-unread="false">All</button>
+                <button class="filter-pill" id="notif-pill-unread" data-unread="true">Unread Only</button>
+              </div>
+
+              <button id="btn-mark-all-read" class="btn btn-secondary btn-sm" title="Mark all unread alerts as read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Mark All Read</span>
+              </button>
+
+              <button id="btn-refresh-notifications" class="btn btn-secondary btn-sm" title="Refresh notification alerts">
+                <svg class="spin-on-load" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Notification KPI Cards -->
+          <div class="metrics-grid" style="margin-bottom: 24px;">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Total Alerts</span>
+                <div class="metric-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="notif-kpi-total">0</div>
+              <div class="metric-subtext">Recorded notifications</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Unread Alerts</span>
+                <div class="metric-icon-box accent-indigo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="notif-kpi-unread" style="color: var(--accent-primary);">0</div>
+              <div class="metric-subtext">Pending user review</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Text Changes</span>
+                <div class="metric-icon-box accent-violet">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="notif-kpi-text">0</div>
+              <div class="metric-subtext">DOM mutation alerts</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Visual Changes</span>
+                <div class="metric-icon-box accent-cyan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="notif-kpi-visual">0</div>
+              <div class="metric-subtext">Pixel difference alerts</div>
+            </div>
+          </div>
+
+          <!-- Main Notifications Feed Container -->
+          <div class="card notif-feed-card" style="padding: 0; overflow: hidden;">
+            <div id="notifications-list-container">
+              <div class="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Loading notification alerts...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 7: ANALYTICS -->
+        <section id="view-analytics" class="app-view">
+          <!-- Top Control Header: Monitor & Range Selectors -->
+          <div class="view-header-bar">
+            <div class="view-title-group">
+              <div class="page-icon-wrapper accent-cyan">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+              </div>
+              <div>
+                <h1 class="page-title">Analytics &amp; Telemetry</h1>
+                <p class="page-subtitle">Telemetry inspection covering check volume, latency benchmarks, change rates, and status codes.</p>
+              </div>
+            </div>
+
+            <div class="view-controls-top">
+              <div class="control-group-inline">
+                <label for="an-site-select" class="control-label">Target:</label>
+                <select id="an-site-select" class="form-select form-select-sm" aria-label="Filter analytics by target monitor">
+                  <option value="all">All Monitors (Aggregated)</option>
+                </select>
+              </div>
+
+              <div class="control-group-inline">
+                <label for="an-days-select" class="control-label">Range:</label>
+                <select id="an-days-select" class="form-select form-select-sm" aria-label="Select date range">
+                  <option value="7">Last 7 Days</option>
+                  <option value="14">Last 14 Days</option>
+                  <option value="30" selected>Last 30 Days</option>
+                  <option value="90">Last 90 Days</option>
+                  <option value="0">All Time</option>
+                </select>
+              </div>
+
+              <button id="an-btn-refresh" class="btn btn-secondary btn-sm" title="Refresh analytics data">
+                <svg class="spin-on-load" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span>Refresh</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 6 Telemetry KPI Cards -->
+          <div class="metrics-grid metrics-grid-6" style="margin-bottom: 24px;">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Total Checks</span>
+                <div class="metric-icon-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 14"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="an-kpi-total-checks">0</div>
+              <div class="metric-subtext">Executed check runs</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Text Changes</span>
+                <div class="metric-icon-box accent-violet">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="an-kpi-text-changes">0</div>
+              <div class="metric-subtext">DOM text mutations</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Visual Changes</span>
+                <div class="metric-icon-box accent-cyan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="an-kpi-visual-changes">0</div>
+              <div class="metric-subtext">Pixel diff &gt; threshold</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Failed Checks</span>
+                <div class="metric-icon-box" style="background: rgba(239, 68, 68, 0.12); color: var(--accent-error);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="an-kpi-failed-checks">0</div>
+              <div class="metric-subtext">HTTP errors / timeouts</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Change Rate</span>
+                <div class="metric-icon-box accent-emerald">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="an-kpi-change-rate">0.0%</div>
+              <div class="metric-subtext">Changes per check run</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Avg Latency</span>
+                <div class="metric-icon-box" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 14 14"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value" id="an-kpi-avg-latency">—</div>
+              <div class="metric-subtext">Server response time</div>
+            </div>
+          </div>
+
+          <!-- Analytics Main Content Body (Timeline Chart, Status Codes, Leaderboard) -->
+          <div id="an-content-container">
+            <div class="card" style="padding: 32px; text-align: center;">
+              <div class="loading-spinner" style="margin: 0 auto 12px auto;"></div>
+              <p style="color: var(--text-muted); font-size: 0.88rem;">Loading monitoring analytics and metrics...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 8: RELIABILITY LAB -->
+        <section id="view-reliability" class="app-view">
+          <div class="card placeholder-page-card">
+            <div class="page-hero-header">
+              <div class="page-icon-wrapper accent-emerald">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h1 class="page-title">Reliability & Security Lab</h1>
+                <p class="page-subtitle">SSRF firewall verification, test mock generators, and fault tolerance diagnostics.</p>
+              </div>
+            </div>
+
+            <div class="status-callout callout-success">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <div>
+                <strong>SSRF Shield Active:</strong> Localhost, 127.0.0.1, RFC 1918 subnets (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16), and cloud metadata endpoints (169.254.169.254) are strictly blocked by DNS pre-flight verification.
+              </div>
+            </div>
+
+            <div class="placeholder-grid">
+              <div class="card subcard">
+                <h3 class="subcard-title">Pytest Hermetic Suite</h3>
+                <p class="subcard-desc">11/11 automated unit & integration tests passing with 0 external network dependencies.</p>
+              </div>
+              <div class="card subcard">
+                <h3 class="subcard-title">Database Concurrency</h3>
+                <p class="subcard-desc">SQLite multi-thread connection pooling enabled with <code>check_same_thread=False</code>.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 9: SETTINGS -->
+        <section id="view-settings" class="app-view">
+          <div class="card placeholder-page-card">
+            <div class="page-hero-header">
+              <div class="page-icon-wrapper">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </div>
+              <div>
+                <h1 class="page-title">Application Settings</h1>
+                <p class="page-subtitle">System preferences, crawler identity, and theme configuration.</p>
+              </div>
+            </div>
+
+            <div class="placeholder-grid">
+              <div class="card subcard">
+                <h3 class="subcard-title">User-Agent Header</h3>
+                <p class="subcard-desc">Identifies ChangeScope politely to visited web servers with administrative contact email.</p>
+                <div class="mock-input-preview">
+                  <span class="mock-val">ChangeScope/0.1.0 (+https://github.com/changescope)</span>
+                </div>
+              </div>
+              <div class="card subcard">
+                <h3 class="subcard-title">Theme Preference</h3>
+                <p class="subcard-desc">Current interface appearance mode stored in your browser's local storage.</p>
+                <div class="tag-row">
+                  <button id="btn-theme-light-select" class="tag">Light Mode</button>
+                  <button id="btn-theme-dark-select" class="tag active-tag">Dark Mode</button>
+                </div>
+              </div>
+
+              <!-- Notification Preferences (Prompt 8) -->
+              <div class="card subcard notif-pref-card" style="grid-column: 1 / -1;">
+                <div class="subcard-header-flex">
+                  <div>
+                    <h3 class="subcard-title">Notification &amp; Alert Preferences</h3>
+                    <p class="subcard-desc">Configure which automated monitoring events trigger persistent alerts in ChangeScope.</p>
+                  </div>
+                  <button id="btn-save-notif-prefs" class="btn btn-primary btn-sm">Save Preferences</button>
+                </div>
+                <div class="notif-pref-list">
+                  <label class="notif-pref-item">
+                    <div class="notif-pref-info">
+                      <span class="notif-pref-title">DOM Text Changes</span>
+                      <span class="notif-pref-sub">Generate alerts when HTML text content differs from previous baseline</span>
+                    </div>
+                    <input type="checkbox" id="pref-notify-text-change" class="custom-switch" checked />
+                  </label>
+
+                  <label class="notif-pref-item">
+                    <div class="notif-pref-info">
+                      <span class="notif-pref-title">Visual Layout &amp; Screenshot Changes</span>
+                      <span class="notif-pref-sub">Generate alerts when Playwright/Pillow visual difference meets or exceeds the threshold</span>
+                    </div>
+                    <input type="checkbox" id="pref-notify-visual-change" class="custom-switch" checked />
+                  </label>
+
+                  <label class="notif-pref-item">
+                    <div class="notif-pref-info">
+                      <span class="notif-pref-title">Check Failures &amp; HTTP Errors</span>
+                      <span class="notif-pref-sub">Generate alerts when monitoring checks fail due to HTTP 4xx/5xx codes, network timeouts, or SSRF blocks</span>
+                    </div>
+                    <input type="checkbox" id="pref-notify-check-failed" class="custom-switch" checked />
+                  </label>
+                </div>
+              </div>
+
+              <!-- Scheduler & Automation Preferences (Prompt 9) -->
+              <div class="card subcard notif-pref-card scheduler-pref-card" style="grid-column: 1 / -1;">
+                <div class="subcard-header-flex">
+                  <div>
+                    <h3 class="subcard-title">Automated Monitoring &amp; Scheduler Preferences</h3>
+                    <p class="subcard-desc">Control automated background polling loops and concurrency behavior across all targets.</p>
+                  </div>
+                  <button id="btn-save-scheduler-prefs" class="btn btn-primary btn-sm">Save Automation Settings</button>
+                </div>
+                <div class="notif-pref-list">
+                  <label class="notif-pref-item">
+                    <div class="notif-pref-info">
+                      <span class="notif-pref-title">Enable Automated Background Checks</span>
+                      <span class="notif-pref-sub">When active, APScheduler continuously polls websites at their configured interval. When disabled, all background polling is paused while manual checks remain available.</span>
+                    </div>
+                    <input type="checkbox" id="pref-scheduler-auto-checks" class="custom-switch" checked />
+                  </label>
+
+                  <div class="notif-pref-item" style="cursor: default;">
+                    <div class="notif-pref-info">
+                      <span class="notif-pref-title">Maximum Concurrent Check Workers</span>
+                      <span class="notif-pref-sub">Limits simultaneous browser instances and HTTP socket requests to prevent resource exhaustion.</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <input type="number" id="pref-scheduler-max-workers" class="form-input form-input-sm" style="width: 80px; text-align: center;" min="1" max="20" value="5" />
+                      <span style="font-size: 0.78rem; color: var(--text-muted);">threads</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- User Account & Security (Prompt 10) -->
+              <div class="card subcard notif-pref-card" style="grid-column: 1 / -1;">
+                <div class="subcard-header-flex">
+                  <div>
+                    <h3 class="subcard-title">User Account &amp; Authentication</h3>
+                    <p class="subcard-desc">Manage your profile credentials, password security, and active session.</p>
+                  </div>
+                  <button type="button" id="btn-settings-logout" class="btn btn-secondary btn-sm" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.3);">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                      <polyline points="16 17 21 12 16 7"></polyline>
+                      <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Log Out</span>
+                  </button>
+                </div>
+
+                <div class="account-details-grid">
+                  <div class="account-info-tile">
+                    <span class="detail-label">Email Address</span>
+                    <span class="account-info-value" id="settings-user-email">Loading...</span>
+                  </div>
+                  <div class="account-info-tile">
+                    <span class="detail-label">Display Name</span>
+                    <span class="account-info-value" id="settings-user-name">Loading...</span>
+                  </div>
+                  <div class="account-info-tile">
+                    <span class="detail-label">Account Role</span>
+                    <span class="account-info-value" id="settings-user-role">Member</span>
+                  </div>
+                  <div class="account-info-tile">
+                    <span class="detail-label">Member Since</span>
+                    <span class="account-info-value" id="settings-user-created">—</span>
+                  </div>
+                </div>
+
+                <!-- Update Name Form -->
+                <form id="form-update-profile" class="settings-inline-form" style="margin-top: 16px;">
+                  <div class="form-row">
+                    <div class="form-group flex-1">
+                      <label for="settings-input-name" class="form-label">Update Display Name</label>
+                      <input type="text" id="settings-input-name" class="form-input" placeholder="Your Full Name" maxlength="120" />
+                    </div>
+                    <div class="form-group" style="align-self: flex-end;">
+                      <button type="submit" id="btn-save-profile-name" class="btn btn-secondary">Save Name</button>
+                    </div>
+                  </div>
+                </form>
+
+                <!-- Change Password Section -->
+                <div class="settings-sub-section" style="margin-top: 20px; border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+                  <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 12px;">Change Password</h4>
+                  <form id="form-change-password" novalidate>
+                    <div class="form-row">
+                      <div class="form-group flex-1">
+                        <label for="pwd-current" class="form-label">Current Password</label>
+                        <input type="password" id="pwd-current" class="form-input" placeholder="••••••••" required autocomplete="current-password" />
+                      </div>
+                      <div class="form-group flex-1">
+                        <label for="pwd-new" class="form-label">New Password (min 8 chars)</label>
+                        <input type="password" id="pwd-new" class="form-input" placeholder="••••••••" minlength="8" required autocomplete="new-password" />
+                      </div>
+                      <div class="form-group" style="align-self: flex-end;">
+                        <button type="submit" id="btn-submit-pwd-change" class="btn btn-secondary">Update Password</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Polished SaaS Footer -->
+      <footer class="app-footer">
+        <div class="footer-left">
+          <span>ChangeScope &copy; 2026 • Intelligent Website Change Detector</span>
+        </div>
+        <div class="footer-right">
+          <span class="footer-pill">Step 1: SaaS Shell Active</span>
+          <span class="footer-pill">SQLite v3</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modals & Overlays -->
+  <!-- 1. Add / Edit Monitor Modal -->
+  <div id="modal-monitor-form" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-header-title">
+          <div class="modal-icon-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+          </div>
+          <div>
+            <h3 id="modal-form-title" class="modal-title">Add Website Monitor</h3>
+            <p id="modal-form-subtitle" class="modal-subtitle">Register a web endpoint for automated change detection.</p>
+          </div>
+        </div>
+        <button id="btn-close-form-modal" class="btn-icon" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="monitor-form" class="modal-form" novalidate>
+        <input type="hidden" id="form-monitor-id" value="" />
+
+        <!-- Form Validation Error Banner -->
+        <div id="form-error-banner" class="form-alert form-alert-error" style="display: none;" role="alert">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span id="form-error-text">An error occurred</span>
+        </div>
+
+        <div class="form-group">
+          <label for="form-monitor-url" class="form-label">
+            Website URL <span class="required-star">*</span>
+          </label>
+          <div class="form-input-wrapper">
+            <input
+              type="url"
+              id="form-monitor-url"
+              class="form-input"
+              placeholder="https://example.com/pricing"
+              required
+              autocomplete="off"
+            />
+          </div>
+          <span class="form-hint">Must be public HTTP or HTTPS. Localhost, private IPs, and cloud metadata are blocked.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="form-monitor-name" class="form-label">
+            Display Name <span class="optional-tag">(Optional)</span>
+          </label>
+          <input
+            type="text"
+            id="form-monitor-name"
+            class="form-input"
+            placeholder="e.g. Acme Pricing Page (defaults to domain if omitted)"
+            maxlength="120"
+          />
+          <span class="form-hint">A friendly label to easily identify this website in your dashboard.</span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="form-monitor-interval" class="form-label">Check Frequency</label>
+            <select id="form-monitor-interval" class="form-select">
+              <option value="15">Every 15 minutes</option>
+              <option value="30">Every 30 minutes</option>
+              <option value="60" selected>Every 1 hour (Default)</option>
+              <option value="360">Every 6 hours</option>
+              <option value="1440">Once a day (24 hours)</option>
+            </select>
+          </div>
+
+          <div class="form-group flex-1">
+            <label class="form-label">Monitoring State</label>
+            <label class="toggle-control" for="form-monitor-active">
+              <input type="checkbox" id="form-monitor-active" checked />
+              <span class="toggle-track"></span>
+              <span class="toggle-label" id="form-monitor-active-label">Active</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label class="form-label">Visual Screenshots</label>
+            <label class="toggle-control" for="form-monitor-capture-screenshots">
+              <input type="checkbox" id="form-monitor-capture-screenshots" />
+              <span class="toggle-track"></span>
+              <span class="toggle-label" id="form-monitor-capture-screenshots-label">Disabled</span>
+            </label>
+            <span class="form-hint">Capture browser screenshot with Playwright</span>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="form-monitor-visual-threshold" class="form-label">
+              Visual Threshold (%)
+            </label>
+            <input
+              type="number"
+              id="form-monitor-visual-threshold"
+              class="form-input"
+              value="1.0"
+              min="0.1"
+              max="100.0"
+              step="0.1"
+            />
+            <span class="form-hint">Trigger change if visual diff &ge; threshold</span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-form-modal" class="btn btn-secondary">Cancel</button>
+          <button type="submit" id="btn-submit-monitor" class="btn btn-primary">
+            <span class="btn-spinner" style="display: none;"></span>
+            <span id="btn-submit-monitor-text">Create Monitor</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. View Details Modal -->
+  <div id="modal-monitor-view" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-header-title">
+          <div class="modal-icon-badge accent-cyan">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 id="view-modal-title" class="modal-title">Monitor Details</h3>
+            <p id="view-modal-subtitle" class="modal-subtitle">Configuration and live status telemetry.</p>
+          </div>
+        </div>
+        <button id="btn-close-view-modal" class="btn-icon" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="detail-row">
+          <span class="detail-label">Status</span>
+          <span id="view-modal-status-badge" class="status-badge">Active</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Target URL</span>
+          <div class="detail-url-box">
+            <a id="view-modal-url" href="#" target="_blank" rel="noopener noreferrer" class="detail-link"></a>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Check Frequency</span>
+          <span id="view-modal-interval" class="detail-val">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Last HTTP Status</span>
+          <span id="view-modal-http-status" class="detail-val">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Last Latency</span>
+          <span id="view-modal-latency" class="detail-val">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Last Checked</span>
+          <span id="view-modal-last-check" class="detail-val">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Visual Screenshots</span>
+          <span id="view-modal-visual-status" class="detail-val">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Visual Threshold</span>
+          <span id="view-modal-visual-threshold" class="detail-val">—</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Created At</span>
+          <span id="view-modal-created-at" class="detail-val monospace">—</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-view-delete" class="btn btn-danger-outline btn-sm">Delete</button>
+        <div style="flex: 1;"></div>
+        <button type="button" id="btn-view-timemachine" class="btn btn-secondary btn-sm" title="Open this monitor in Time Machine">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 14 14"></polyline>
+          </svg>
+          <span>Time Machine</span>
+        </button>
+        <button type="button" id="btn-view-capture-screenshot" class="btn btn-secondary btn-sm" title="Capture visual screenshot now">
+          <svg class="camera-icon-spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+          <span id="btn-view-capture-screenshot-text">Capture Visual</span>
+        </button>
+        <button type="button" id="btn-view-check-now" class="btn btn-secondary btn-sm">
+          <svg class="check-icon-spin" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span id="btn-view-check-text">Check Now</span>
+        </button>
+        <button type="button" id="btn-view-edit" class="btn btn-secondary btn-sm">Edit Monitor</button>
+        <button type="button" id="btn-close-view-btn" class="btn btn-primary btn-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Delete Confirmation Modal -->
+  <div id="modal-monitor-delete" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card modal-card-sm">
+      <div class="modal-header">
+        <div class="modal-header-title">
+          <div class="modal-icon-badge accent-rose">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title">Delete Monitor</h3>
+            <p class="modal-subtitle">Permanent action confirmation</p>
+          </div>
+        </div>
+        <button id="btn-close-delete-modal" class="btn-icon" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p class="delete-warning-text">
+          Are you sure you want to delete <strong id="delete-monitor-name-display">this monitor</strong>?
+        </p>
+        <p class="delete-subtext">
+          This will permanently remove the target URL and all associated historical snapshots from your SQLite database.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="btn-cancel-delete" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="btn-confirm-delete" class="btn btn-danger">
+          <span class="btn-spinner" style="display: none;"></span>
+          <span id="btn-confirm-delete-text">Delete Target</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Diff Inspector Modal (Before/After Comparison) -->
+  <div id="modal-diff-view" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card modal-card-lg">
+      <div class="modal-header">
+        <div class="modal-header-title">
+          <div class="modal-icon-badge accent-violet">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+          <div>
+            <h3 id="diff-modal-title" class="modal-title">Change Diff Inspector</h3>
+            <p id="diff-modal-subtitle" class="modal-subtitle">Text comparison between consecutive snapshots.</p>
+          </div>
+        </div>
+        <button id="btn-close-diff-modal" class="btn-icon" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body" style="gap: 16px;">
+        <div class="diff-meta-bar">
+          <div class="diff-meta-left">
+            <span id="diff-modal-summary-badge" class="status-badge status-badge-paused">Diff Summary</span>
+            <span id="diff-modal-time" class="detail-label" style="font-size: 0.78rem;"></span>
+          </div>
+          <div class="diff-tab-buttons" role="tablist">
+            <button class="diff-tab-btn active" data-tab="unified">Unified Diff</button>
+            <button class="diff-tab-btn" data-tab="before">Before</button>
+            <button class="diff-tab-btn" data-tab="after">After</button>
+          </div>
+        </div>
+
+        <!-- Tab 1: Unified Diff -->
+        <div id="diff-pane-unified" class="diff-tab-pane active">
+          <div class="diff-code-wrapper">
+            <pre class="diff-code"><code id="diff-unified-output">// Unified diff will render here...</code></pre>
+          </div>
+        </div>
+
+        <!-- Tab 2: Before Version -->
+        <div id="diff-pane-before" class="diff-tab-pane">
+          <div class="diff-code-wrapper">
+            <pre class="diff-code"><code id="diff-before-output">// Previous text...</code></pre>
+          </div>
+        </div>
+
+        <!-- Tab 3: After Version -->
+        <div id="diff-pane-after" class="diff-tab-pane">
+          <div class="diff-code-wrapper">
+            <pre class="diff-code"><code id="diff-after-output">// Current text...</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div style="flex: 1;"></div>
+        <button type="button" id="btn-close-diff-btn" class="btn btn-secondary btn-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Authentication Overlay (Prompt 10) -->
+  <div id="auth-overlay" class="auth-overlay" style="display: none;">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-brand">
+          <div class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="2" r="2"></circle>
+              <line x1="12" y1="2" x2="12" y2="4"></line>
+              <line x1="12" y1="20" x2="12" y2="22"></line>
+              <line x1="2" y1="12" x2="4" y2="12"></line>
+              <line x1="20" y1="12" x2="22" y2="12"></line>
+            </svg>
+          </div>
+          <div>
+            <h2 class="auth-title">ChangeScope</h2>
+            <span class="auth-subtitle">Intelligent Website Change Detector</span>
+          </div>
+        </div>
+        <p class="auth-tagline">Automated DOM change detection, visual regression auditing, and persistent alerting.</p>
+      </div>
+
+      <div class="auth-tabs" role="tablist">
+        <button type="button" id="tab-auth-login" class="auth-tab-btn active" role="tab" aria-selected="true">Sign In</button>
+        <button type="button" id="tab-auth-register" class="auth-tab-btn" role="tab" aria-selected="false">Create Account</button>
+      </div>
+
+      <!-- Auth Error / Success Alert -->
+      <div id="auth-alert" class="form-alert form-alert-error" style="display: none;" role="alert">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span id="auth-alert-text"></span>
+      </div>
+
+      <!-- Form 1: Sign In -->
+      <form id="form-auth-login" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="login-email" class="form-label">Email Address <span class="required-star">*</span></label>
+          <input type="email" id="login-email" class="form-input" placeholder="you@company.com" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="login-password" class="form-label">Password <span class="required-star">*</span></label>
+          <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+        <button type="submit" id="btn-submit-login" class="btn btn-primary btn-block">
+          <span class="btn-spinner" style="display: none;"></span>
+          <span id="btn-submit-login-text">Sign In to ChangeScope</span>
+        </button>
+        <div class="auth-helper-note">
+          <span>Need a test account?</span>
+          <button type="button" id="btn-fill-demo" class="btn-link">Use default admin credentials</button>
+        </div>
+      </form>
+
+      <!-- Form 2: Register -->
+      <form id="form-auth-register" class="auth-form" style="display: none;" novalidate>
+        <div class="form-group">
+          <label for="register-name" class="form-label">Full Name <span class="optional-tag">(Optional)</span></label>
+          <input type="text" id="register-name" class="form-input" placeholder="Alex Rivers" autocomplete="name" />
+        </div>
+        <div class="form-group">
+          <label for="register-email" class="form-label">Email Address <span class="required-star">*</span></label>
+          <input type="email" id="register-email" class="form-input" placeholder="alex@company.com" required autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label for="register-password" class="form-label">Password <span class="required-star">*</span></label>
+          <input type="password" id="register-password" class="form-input" placeholder="At least 8 characters" minlength="8" required autocomplete="new-password" />
+          <span class="form-hint">Must contain at least 8 characters. Passwords are securely hashed with bcrypt.</span>
+        </div>
+        <button type="submit" id="btn-submit-register" class="btn btn-primary btn-block">
+          <span class="btn-spinner" style="display: none;"></span>
+          <span id="btn-submit-register-text">Create Free Account</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
