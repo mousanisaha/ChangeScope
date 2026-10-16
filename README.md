@@ -6,7 +6,7 @@ ChangeScope is a lightweight, reliable web application that monitors websites ov
 
 ## Live Demo
 
-- **Hosted Application URL**: [ADD YOUR DEPLOYED WEBSITE URL HERE]
+- **Hosted Application URL**: https://changescope.onrender.com/
 - **Local Application Dashboard**: [http://127.0.0.1:8000/](http://127.0.0.1:8000/) *(or [http://localhost:8000/](http://localhost:8000/))*
 - **Interactive API Documentation (Swagger UI)**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - **Alternative API Documentation (ReDoc)**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
